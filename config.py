@@ -10,5 +10,3 @@ def tortoise_config(app: FastAPI, models: List["str"]):
         generate_schemas=True,
         modules={"models": models},
     )
-
-#asdkmalksdakm
