@@ -1,6 +1,7 @@
 from pydantic import BaseModel
+from typing import Optional
 
 
 class ValidateAuction(BaseModel):
     title: str
-    image: str
+    image: Optional[str] = None
