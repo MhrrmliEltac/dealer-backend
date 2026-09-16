@@ -10,6 +10,7 @@ from services.routers import router as service_router
 from contact.routers import router as contact_router
 from about.routers import router as about_router
 from serviceInformation.routers import router as service_info_router
+from suggestion.routers import router as suggestion_router
 
 app = FastAPI()
 
@@ -36,9 +37,10 @@ app.include_router(service_router, prefix="/service", tags=["Service"])
 app.include_router(contact_router, prefix="/contact", tags=["Contact"])
 app.include_router(about_router, prefix="/about", tags=["About"])
 app.include_router(service_info_router, prefix="/info", tags=["Info"])
+app.include_router(suggestion_router, prefix="/suggestion", tags=["Suggestion"])
 
 tortoise_config(app, ["user.models", "auction.models", "contact.models", "services.models", "about.models",
-                      "serviceInformation.models"])
+                      "serviceInformation.models", "suggestion.models"])
 
 if __name__ == "__main__":
     uvicorn.run(app="index:app", port=8080, reload=True, host="127.1.1.1")
