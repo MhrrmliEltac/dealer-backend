@@ -1,5 +1,3 @@
-import uuid
-
 from tortoise import models, fields
 
 
