@@ -5,11 +5,11 @@ from fastapi import APIRouter, HTTPException, status
 from tortoise.exceptions import DoesNotExist
 from services.models import Services
 from services.schemas import ValidateService
+from utils.paths import static_url_to_path, upload_dir
 
 router = APIRouter()
 
-UPLOAD_DIR = "static/uploads/services"
-os.makedirs(UPLOAD_DIR, exist_ok=True)
+UPLOAD_DIR = upload_dir("services")
 
 
 @router.get("/")
@@ -57,7 +57,7 @@ async def delete_service(service_id: uuid.UUID):
         )
 
     if service.image:
-        file_path = service.image.lstrip("/")  # "/static/..." -> "static/..."
+        file_path = static_url_to_path(service.image)
         if os.path.exists(file_path):
             os.remove(file_path)
 

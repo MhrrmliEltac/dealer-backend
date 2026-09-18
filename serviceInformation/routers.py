@@ -7,11 +7,11 @@ from starlette import status
 
 from serviceInformation.models import ServiceInfo
 from serviceInformation.schemas import ValidateServiceInfo
+from utils.paths import upload_dir
 
 router = APIRouter()
 
-UPLOAD_DIR = "static/uploads/serviceInfo"
-os.makedirs(UPLOAD_DIR, exist_ok=True)
+UPLOAD_DIR = upload_dir("serviceInfo")
 
 
 @router.get("/")

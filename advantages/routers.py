@@ -5,11 +5,11 @@ from fastapi import APIRouter, HTTPException, status
 from tortoise.exceptions import DoesNotExist
 from advantages.models import Advantages
 from advantages.schemas import RequestAdvantages
+from utils.paths import static_url_to_path, upload_dir
 
 router = APIRouter()
 
-UPLOAD_DIR = "static/uploads/advantages"
-os.makedirs(UPLOAD_DIR, exist_ok=True)
+UPLOAD_DIR = upload_dir("advantages")
 
 
 @router.get("/")
@@ -52,7 +52,7 @@ async def delete_advantage(advantage_id: uuid.UUID):
         )
 
     if advantage.image:
-        file_path = advantage.image.lstrip("/")
+        file_path = static_url_to_path(advantage.image)
         if os.path.exists(file_path):
             os.remove(file_path)
 

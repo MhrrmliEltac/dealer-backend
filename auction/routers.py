@@ -4,11 +4,11 @@ import os
 from fastapi import APIRouter, HTTPException, status
 from auction.models import Auction
 from auction.schemas import ValidateAuction
+from utils.paths import upload_dir
 
 router = APIRouter()
 
-UPLOAD_DIR = "static/uploads/auction"
-os.makedirs(UPLOAD_DIR, exist_ok=True)
+UPLOAD_DIR = upload_dir("auction")
 
 
 @router.get("/")

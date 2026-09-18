@@ -4,14 +4,13 @@ import os
 from fastapi import APIRouter, status, HTTPException
 from tortoise.exceptions import DoesNotExist
 
-from about.schemas import ValidateAbout
-
 from about.models import About
+from about.schemas import ValidateAbout
+from utils.paths import static_url_to_path, upload_dir
 
 router = APIRouter()
 
-UPLOAD_DIR = "static/uploads/about"
-os.makedirs(UPLOAD_DIR, exist_ok=True)
+UPLOAD_DIR = upload_dir("about")
 
 
 @router.get("/")
@@ -76,12 +75,12 @@ async def delete_about(about_id: uuid.UUID):
         raise HTTPException(status_code=404, detail="About not found")
 
     if about.about_image:
-        file_path = about.about_image.lstrip("/")
+        file_path = static_url_to_path(about.about_image)
         if os.path.exists(file_path):
             os.remove(file_path)
 
     elif about.mission_image:
-        file_path = about.mission_image.lstrip("/")
+        file_path = static_url_to_path(about.mission_image)
         if os.path.exists(file_path):
             os.remove(file_path)
 
